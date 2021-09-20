@@ -11,7 +11,7 @@ FROM python:3.9
 
 ADD main.py .
 
-RUN pip install pandas 
+RUN pip install pandas numpy ipython pyzmq tornado opencv-python
 
 
 CMD ["python" , "./main.py"]
