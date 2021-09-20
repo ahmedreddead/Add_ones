@@ -88,6 +88,7 @@ def CreatePacket (GatewayID, SensorId , Temp , Hum , Date) :
     return  binary_string1
 def send_packet():
     Thread = threading.Timer(20.0, send_packet)
+    Thread.start()
     TempList = ['99.2','88.2','77.2']
     HimList = ['44','88','77']
     templist = [TempmeratureToHex(value) for value in TempList]
