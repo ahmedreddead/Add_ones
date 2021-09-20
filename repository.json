@@ -1,5 +1,5 @@
 {
-  "name": "Hass.IO example add-on repository",
+  "name": "Skarpt add-on repository",
   "url": "https://home-assistant.io/",
-  "maintainer": "Skarpt <info@home-assistant.io>"
+  "maintainer": "HomeAssistant <info@home-assistant.io>"
 }
