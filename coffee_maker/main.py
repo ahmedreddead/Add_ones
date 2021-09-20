@@ -267,10 +267,7 @@ def print_hi(name):
 if __name__ == '__main__':
     print_hi('PyCharm')
     start_time = time.time()
-    if os.path.isfile('sensor1.wdf'):
-        PreProceesData_Lascar()
-    elif os.path.isfile('data.csv') :
-        PreProceesData_EnvironMon()
+    PreProceesData_EnvironMon()
     print("--- %s seconds ---" % (time.time() - start_time))
 
 
