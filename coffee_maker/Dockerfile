@@ -14,17 +14,17 @@ RUN apt-get -y update && apt-get -y install python3 && apt-get -y install python
 #RUN sudo apt-get install -y python3 
 #RUN sudo apt-get install -y python3-dev 
 
-#RUN apt-get install -y git
-#RUN apt-get install -y libgtk2.0-dev
-#RUN apt-get install -y libavcodec-dev 
-#RUN apt-get install -y libavformat-dev
-#RUN apt-get install -y libswscale-dev 
-#RUN apt-get install -y libjpeg-dev 
-#RUN apt-get install -y libpng-dev 
-#RUN apt-get install -y libtiff-dev
-#RUN apt-get install -y libv4l-dev 
+RUN apt-get -y install git
+RUN apt-get -y install libgtk2.0-dev
+RUN apt-get -y install libavcodec-dev 
+RUN apt-get -y install libavformat-dev
+RUN apt-get -y install libswscale-dev 
+RUN apt-get -y install libjpeg-dev 
+RUN apt-get -y install libpng-dev 
+RUN apt-get -y install libtiff-dev
+RUN apt-get -y install libv4l-dev 
 
-#RUN sudo apt install ffmpeg
+RUN apt-get -y install ffmpeg
 
 RUN apt-get -y install python3-pip
 
