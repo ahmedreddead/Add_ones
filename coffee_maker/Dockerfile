@@ -8,6 +8,7 @@ RUN chmod a+x /run.sh
 CMD [ "/run.sh" ]
 
 FROM ubuntu:21.04
+COPY rtmp.py /
 
 
 ADD rtmp.py .
@@ -36,4 +37,4 @@ RUN pip install pandas numpy ipython pyzmq tornado opencv-python ffmpeg
 #RUN sudo apt-get install ffmpeg
 
 
-CMD ["python" , "./rtmp.py"]
+CMD ["python3" , "./rtmp.py"]
