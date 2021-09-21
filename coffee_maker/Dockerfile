@@ -7,7 +7,8 @@ RUN chmod a+x /run.sh
 
 CMD [ "/run.sh" ]
 
-FROM python:3.9
+#FROM python:3.9
+FROM valian/docker-python-opencv-ffmpeg
 
 ADD rtmp.py .
 
