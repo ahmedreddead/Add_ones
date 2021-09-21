@@ -26,7 +26,7 @@ RUN apt-get -y update && apt-get -y install python3 && apt-get -y install python
 
 #RUN sudo apt install ffmpeg
 
-RUN apt-get install python3-pip
+RUN apt-get -y install python3-pip
 
 RUN pip install pandas numpy ipython pyzmq tornado opencv-python ffmpeg
 
