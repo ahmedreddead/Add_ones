@@ -13,8 +13,8 @@ ADD rtmp.py .
 
 RUN apt-get update && apt-get install -y python3-opencv
 
-RUN sudo apt-get install ffmpeg
+#RUN sudo apt-get install ffmpeg
 
-RUN pip install pandas numpy ipython pyzmq tornado opencv-python
+RUN pip install pandas numpy ipython pyzmq tornado opencv-python ffmpeg
 
 CMD ["python" , "./rtmp.py"]
