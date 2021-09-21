@@ -8,10 +8,11 @@ RUN chmod a+x /run.sh
 CMD [ "/run.sh" ]
 
 FROM ubuntu:21.04
-
-RUN sudo apt-get update && sudo apt-get install -y python3-opencv
-RUN sudo apt-get install -y python3 
-RUN sudo apt-get install -y python3-dev 
+RUN apt-get -y update && apt-get -y install python3 && apt-get -y install python3-dev 
+    
+#RUN sudo apt-get update && sudo apt-get install -y python3-opencv
+#RUN sudo apt-get install -y python3 
+#RUN sudo apt-get install -y python3-dev 
 
 #RUN apt-get install -y git
 #RUN apt-get install -y libgtk2.0-dev
