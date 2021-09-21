@@ -23,7 +23,6 @@ RUN apt-get install -y libswscale-dev
 RUN apt-get install -y libjpeg-dev 
 RUN apt-get install -y libpng-dev 
 RUN apt-get install -y libtiff-dev
-RUN apt-get install -y libjasper-dev 
 RUN apt-get install -y libv4l-dev 
 
 #RUN sudo apt-get install ffmpeg
