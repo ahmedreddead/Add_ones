@@ -13,7 +13,19 @@ FROM ubuntu:21.04
 ADD rtmp.py .
 
 RUN apt-get update && apt-get install -y python3-opencv
-RUN apt-get install -y python3  python3-dev  git libjasper-dev  libgtk2.0-dev  libavcodec-dev  libavformat-dev  libswscale-dev  libjpeg-dev  libpng-dev  libtiff-dev libjasper-dev  libv4l-dev 
+RUN apt-get install -y python3 
+RUN apt-get install -y python3-dev 
+RUN apt-get install -y git
+RUN apt-get install -y libjasper-dev 
+RUN apt-get install -y libgtk2.0-dev
+RUN apt-get install -y libavcodec-dev 
+RUN apt-get install -y libavformat-dev
+RUN apt-get install -y libswscale-dev 
+RUN apt-get install -y libjpeg-dev 
+RUN apt-get install -y libpng-dev 
+RUN apt-get install -y libtiff-dev
+RUN apt-get install -y libjasper-dev 
+RUN apt-get install -y libv4l-dev 
 
 #RUN sudo apt-get install ffmpeg
 
