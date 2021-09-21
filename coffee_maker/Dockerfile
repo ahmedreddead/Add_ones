@@ -24,9 +24,9 @@ RUN apt-get -y update && apt-get -y install python3 && apt-get -y install python
 #RUN apt-get install -y libtiff-dev
 #RUN apt-get install -y libv4l-dev 
 
-RUN apt-get -y install ffmpeg
+RUN apt-get install ffmpeg
 
-RUN pt-get -y install python3-pip
+RUN apt-get install python3-pip
 
 RUN pip install pandas numpy ipython pyzmq tornado opencv-python ffmpeg
 
