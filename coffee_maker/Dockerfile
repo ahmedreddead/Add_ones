@@ -24,7 +24,7 @@ RUN apt-get -y install libpng-dev
 RUN apt-get -y install libtiff-dev
 RUN apt-get -y install libv4l-dev 
 
-#RUN apt-get -y install ffmpeg
+RUN apt-get -y install ffmpeg
 
 RUN apt-get -y install python3-pip
 
