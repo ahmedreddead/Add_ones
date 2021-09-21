@@ -12,7 +12,7 @@ FROM python:3.9
 ADD rtmp.py .
 
 RUN apt-get update && apt-get install -y python3-opencv
-RUN sudo apt-get install build-essential libmp3lame-dev libvorbis-dev libtheora-dev libspeex-dev yasm pkg-config libfaac-dev libopenjpeg-dev libx264-dev
+RUN sudo apt install build-essential libmp3lame-dev libvorbis-dev libtheora-dev libspeex-dev yasm pkg-config libfaac-dev libopenjpeg-dev libx264-dev
 RUN sudo apt-get install ffmpeg
 RUN pip install pandas numpy ipython pyzmq tornado opencv-python
 
