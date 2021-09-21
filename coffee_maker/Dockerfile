@@ -9,11 +9,11 @@ CMD [ "/run.sh" ]
 
 FROM python:3.9
 
-ADD main.py .
+ADD rtmp.py .
 
 RUN apt-get update && apt-get install -y python3-opencv
 
 RUN pip install pandas numpy ipython pyzmq tornado opencv-python
 
 
-CMD ["python" , "./main.py"]
+CMD ["python" , "./rtmp.py"]
