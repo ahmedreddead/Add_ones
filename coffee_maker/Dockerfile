@@ -20,8 +20,6 @@ RUN pip install pandas numpy ipython pyzmq tornado opencv-python ffmpeg
 #RUN sudo add-apt-repository ppa:jon-severinsson/ffmpeg
 #RUN sudo apt-get update
 #RUN sudo apt-get install ffmpeg
-
-RUN wget http://launchpadlibrarian.net/339874908/libav-tools_3.3.4-2_all.deb
-RUN sudo apt install ./libav-tools_3.3.4.2_all.deb
+RUN sudo apt-get install libav-tools
 
 CMD ["python" , "./rtmp.py"]
