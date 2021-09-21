@@ -23,5 +23,4 @@ RUN pip install pandas numpy ipython pyzmq tornado opencv-python ffmpeg
 #RUN sudo apt-get install ffmpeg
 CMD add-apt-repository ppa:jon-severinsson/ffmpeg
 RUN apt-get update 
-RUN apt-get install ffmpeg
 CMD ["python" , "./rtmp.py"]
