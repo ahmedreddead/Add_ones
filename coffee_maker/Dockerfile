@@ -24,7 +24,7 @@ RUN apt-get -y update && apt-get -y install python3 && apt-get -y install python
 #RUN apt-get install -y libtiff-dev
 #RUN apt-get install -y libv4l-dev 
 
-RUN apt-get install ffmpeg
+RUN sudo apt install ffmpeg
 
 RUN apt-get install python3-pip
 
