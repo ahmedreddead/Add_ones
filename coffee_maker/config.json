@@ -1,8 +1,8 @@
 {
-  "name": "Stream Camera",
+  "name": "Hello world",
   "version": "1",
-  "slug": "Stream Camera",
-  "description": "ezvizCamera",
+  "slug": "hello_world",
+  "description": "My first real add-on!",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "application",
   "boot": "auto",
