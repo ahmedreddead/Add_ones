@@ -15,7 +15,7 @@ RUN apt-get -y update && apt-get -y install python3 && apt-get -y install python
 #RUN sudo apt-get install -y python3-dev 
 
 #RUN apt-get -y install git
-#RUN apt-get -y install libgtk2.0-dev
+RUN apt-get -y install libgtk2.0-dev
 RUN apt-get -y install libavcodec-dev 
 RUN apt-get -y install libavformat-dev
 RUN apt-get -y install libswscale-dev 
