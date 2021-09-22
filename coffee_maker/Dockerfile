@@ -9,10 +9,10 @@ CMD [ "/run.sh" ]
 
 FROM ubuntu:21.04
 
-RUN apt-get -y update 
-RUN apt-get -y install python3 
-RUN apt-get -y install python3-dev 
-RUN apt-get -y install python3-opencv
+RUN apt-get update 
+RUN apt-get install python3 
+RUN apt-get install python3-dev 
+RUN apt-get install python3-opencv
 
 #RUN sudo apt-get update && sudo apt-get install -y python3-opencv
 #RUN sudo apt-get install -y python3 
@@ -21,17 +21,17 @@ RUN apt-get -y install python3-opencv
 #RUN apt-get -y install git
 #RUN apt-get -y install libgtk2.0-dev
 
-RUN apt-get -y install libavcodec-dev 
-RUN apt-get -y install libavformat-dev
-RUN apt-get -y install libswscale-dev 
-RUN apt-get -y install libjpeg-dev 
-RUN apt-get -y install libpng-dev 
-RUN apt-get -y install libtiff-dev
-RUN apt-get -y install libv4l-dev 
+RUN apt-get install libavcodec-dev 
+RUN apt-get install libavformat-dev
+RUN apt-get install libswscale-dev 
+RUN apt-get install libjpeg-dev 
+RUN apt-get install libpng-dev 
+RUN apt-get install libtiff-dev
+RUN apt-get install libv4l-dev 
 
-RUN apt-get -y install ffmpeg
+RUN apt-get install ffmpeg
 
-RUN apt-get -y install python3-pip
+RUN apt-get install python3-pip
 
 RUN pip install pandas numpy ipython pyzmq tornado opencv-python ffmpeg
 
