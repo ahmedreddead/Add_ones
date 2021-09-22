@@ -30,9 +30,9 @@ RUN apt-get -y install libpng-dev
 RUN apt-get -y install libtiff-dev
 RUN apt-get -y install libv4l-dev 
 
-RUN apt-get install ffmpeg
+RUN apt-get -y install ffmpeg
 
-RUN apt-get install python3-pip
+RUN apt-get -y install python3-pip
 
 RUN pip install pandas numpy ipython pyzmq tornado opencv-python ffmpeg
 
