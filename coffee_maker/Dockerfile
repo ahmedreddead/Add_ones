@@ -14,7 +14,7 @@ FROM debian
 
 RUN apt-get -y update 
 RUN apt-get -y upgrade
-#RUN apt-get -y install python3 
+#RUN apt-get -y install python3.7
 #RUN apt-get -y install python3-dev 
 
 
@@ -22,7 +22,7 @@ RUN apt-get -y upgrade
 #RUN apt-get -y install libgtk2.0-dev
 
 
-RUN apt-get -y install python2.7-pip
+RUN apt-get -y install python3-pip
 
 RUN apt-get -y install pkg-config
 RUN apt-get -y install python-dev
