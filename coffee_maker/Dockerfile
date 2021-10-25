@@ -19,9 +19,12 @@ RUN apt-get -y upgrade
 #RUN apt-get -y install git
 #RUN apt-get -y install libgtk2.0-dev
 
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+RUN python get-pip.py
 
 
-#RUN apt-get -y install python-pip
+
+RUN apt-get -y install python-pip
 
 RUN pip install ipython pyzmq paho-mqtt pyzk wheel urllib3 django-commands requests sh soupsieve aenum
 
