@@ -11,8 +11,8 @@ FROM ubuntu:20.04
 
 RUN apt-get -y update 
 RUN apt-get -y upgrade
-RUN apt-get -y install python3 
-RUN apt-get -y install python3-dev 
+RUN apt-get -y install python2.7 
+RUN apt-get -y install python2.7-dev 
 
 
 
@@ -21,7 +21,7 @@ RUN apt-get -y install python3-dev
 
 
 
-RUN apt-get -y install python3-pip
+RUN apt-get -y install python-pip
 
 RUN pip install ipython pyzmq paho-mqtt pyzk wheel urllib3 django-commands requests sh soupsieve aenum
 
@@ -31,4 +31,4 @@ COPY main.py /
 ADD main.py .
 
 
-CMD ["python3" , "./main.py"]
+CMD ["python" , "./main.py"]
