@@ -9,7 +9,9 @@ CMD [ "/run.sh" ]
 #SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 
-FROM ghcr.io/hassio-addons/debian-base/amd64:4.1.2
+
+FROM debian
+
 RUN apt-get -y update 
 RUN apt-get -y upgrade
 #RUN apt-get -y install python3 
