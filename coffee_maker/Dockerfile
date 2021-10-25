@@ -7,10 +7,28 @@ RUN chmod a+x /run.sh
 
 CMD [ "/run.sh" ]
 
-FROM python:3.9
+FROM ubuntu:21.04
+
+RUN apt-get -y update 
+RUN apt-get -y upgrade
+RUN apt-get -y install python3 
+RUN apt-get -y install python3-dev 
+
+
+
+#RUN apt-get -y install git
+#RUN apt-get -y install libgtk2.0-dev
+
+
+
+RUN apt-get -y install python3-pip
+
+RUN pip install ipython pyzmq tornado  paho-mqtt pyzk zk
+
+COPY main.py /
+
 
 ADD main.py .
 
-RUN pip install pandas pyzk paho-mqtt wheel zk
 
-CMD ["python" , "./main.py"]
+CMD ["python3" , "./main.py"]
