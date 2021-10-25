@@ -23,7 +23,7 @@ RUN apt-get -y install python3-dev
 
 RUN apt-get -y install python3-pip
 
-RUN pip install ipython pyzmq tornado  paho-mqtt==1.5.1 zk==0.8.5 wheel 
+RUN pip install ipython pyzmq paho-mqtt pyzk wheel 
 
 COPY main.py /
 
