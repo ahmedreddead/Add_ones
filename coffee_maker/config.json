@@ -1,7 +1,7 @@
 {
-  "name": "Hello world",
+  "name": "Door Lock",
   "version": "1",
-  "slug": "hello_world",
+  "slug": "Door Lock",
   "description": "My first real add-on!",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "application",
