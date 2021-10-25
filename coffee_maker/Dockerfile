@@ -10,7 +10,7 @@ CMD [ "/run.sh" ]
 
 
 
-FROM ghcr.io/hassio-addons/debian-base/amd64:4.1.2
+FROM debian
 
 RUN apt-get -y update 
 RUN apt-get -y upgrade
