@@ -12,8 +12,8 @@ CMD [ "/run.sh" ]
 FROM ghcr.io/hassio-addons/debian-base/amd64:4.1.2
 RUN apt-get -y update 
 RUN apt-get -y upgrade
-RUN apt-get -y install python3 
-RUN apt-get -y install python3-dev 
+#RUN apt-get -y install python3 
+#RUN apt-get -y install python3-dev 
 
 
 #RUN apt-get -y install git
