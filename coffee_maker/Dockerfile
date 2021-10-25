@@ -7,10 +7,10 @@ RUN chmod a+x /run.sh
 
 CMD [ "/run.sh" ]
 
-FROM python:3.5
+FROM python:3.8
 
 ADD main.py .
 
-RUN pip install pyzk paho-mqtt wheel 	
+RUN pip install pyzk paho-mqtt 	
 
-CMD ["python" , "./main.py"]
+CMD ["python3" , "./main.py"]
