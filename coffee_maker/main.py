@@ -1,25 +1,41 @@
+from zk import ZK, const
+import paho.mqtt.client as mqtt
+import socket
+broker_address = "62.210.9.28"
+finalip = ''
+for i in range(99,150) :
+    #196.221.205.166
+    #192.168.0.100
+    socket_obj = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    socket.setdefaulttimeout(1)
+    ip = "192.168.0."+str(i)
+    result = socket_obj.connect_ex((ip,4370))
+    print(result)
+    if result == 0 :
+        finalip = ip
+        socket_obj.close()
+        break
+    socket_obj.close()
+print(finalip)
+def live () :
+    try:
+        zk = ZK(finalip, port=4370, timeout=5, password=0, force_udp=False, ommit_ping=False)
+        conn = zk.connect()
+        conn.enable_device()
 
-import base64
-import cv2
-import zmq
-import numpy as np
-import time
+        for attendance in conn.live_capture(10):
+            if attendance is None:
+                pass
+            else:
+                print("creating new instance")
+                client = mqtt.Client("P1")  # create new instance
+                print("connecting to broker")
+                client.connect(broker_address)  # connect to broker
+                client.subscribe("Attendance")
+                print(attendance)
+                client.publish("Attendance","ON")
+                client.publish("Attendance/ID", str(attendance))
+    except :
+        live()
 
-context = zmq.Context()
-footage_socket = context.socket(zmq.PUB)
-footage_socket.connect('tcp://127.0.0.10:5555')
-
-camera = cv2.VideoCapture('rtsp://admin:LIRROY@196.221.205.130:554/H.264')  # init the camera
-
-while True:
-        try:
-                grabbed, frame = camera.read()  # grab the current frame
-                frame = cv2.resize(frame, (640, 480))  # resize the frame
-                encoded, buffer = cv2.imencode('.jpg', frame)
-                footage_socket.send(buffer)
-
-
-        except KeyboardInterrupt:
-                camera.release()
-                cv2.destroyAllWindows()
-                break
+live()
