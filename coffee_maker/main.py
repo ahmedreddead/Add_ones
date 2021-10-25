@@ -20,7 +20,7 @@ for i in range(99,150) :
 print(finalip)
 def live () :
     try:
-        zk = ZK(finalip, port=4370, timeout=100, password=0, force_udp=True, ommit_ping=False)
+        zk = ZK(finalip, port=4370, timeout=5, password=0, force_udp=False, ommit_ping=False)
         conn = zk.connect()
         conn.enable_device()
 
