@@ -25,10 +25,10 @@ RUN apt-get -y upgrade
 RUN apt-get -y install python3-pip
 
 RUN apt-get -y install pkg-config
-RUN apt-get -y install python-dev=2.7
-RUN apt-get -y install python3-dev=3.7
-RUN apt-get -y install python3-distutils=3.7
-RUN apt-get -y install python3-minimal=3.7
+RUN apt-get -y install python-dev
+RUN apt-get -y install python3-dev
+RUN apt-get -y install python3-distutils
+RUN apt-get -y install python3-minimal
         
 RUN pip install pyzk paho-mqtt wheel 	
 
@@ -38,4 +38,4 @@ COPY main.py /
 ADD main.py .
 
 
-CMD ["python3" , "./main.py"]
+CMD ["python2.7" , "./main.py"]
