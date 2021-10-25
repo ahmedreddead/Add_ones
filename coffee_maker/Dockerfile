@@ -15,18 +15,9 @@ RUN apt-get -y install python3
 RUN apt-get -y install python3-dev 
 
 
-RUN apt-get -y install libavcodec-dev 
-RUN apt-get -y install libavformat-dev
-RUN apt-get -y install libswscale-dev 
-RUN apt-get -y install libjpeg-dev 
-RUN apt-get -y install libpng-dev 
-RUN apt-get -y install libtiff-dev
-RUN apt-get -y install libv4l-dev 
-
-
 RUN apt-get -y install python3-pip
 
-RUN pip install pandas numpy ipython pyzmq tornado pyzk paho-mqtt
+RUN pip install  pyzk paho-mqtt wheel future	
 
 COPY main.py /
 
