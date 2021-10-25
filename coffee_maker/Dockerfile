@@ -23,7 +23,7 @@ RUN apt-get -y install python3-dev
 
 RUN apt-get -y install python3-pip
 
-RUN pip install ipython pyzmq paho-mqtt pyzk wheel 
+RUN pip3 install ipython pyzmq paho-mqtt pyzk wheel urllib3 django-commands requests sh soupsieve aenum
 
 COPY main.py /
 
