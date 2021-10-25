@@ -7,7 +7,7 @@ RUN chmod a+x /run.sh
 
 CMD [ "/run.sh" ]
 
-FROM python:3.7
+FROM python:2.7
 
 ADD main.py .
 
