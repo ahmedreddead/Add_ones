@@ -7,12 +7,12 @@ RUN chmod a+x /run.sh
 
 CMD [ "/run.sh" ]
 
-FROM ubuntu:20.04
+FROM ubuntu:21.04
 
 RUN apt-get -y update 
 RUN apt-get -y upgrade
-RUN apt-get -y install python2.7 
-RUN apt-get -y install python2.7-dev 
+#RUN apt-get -y install python2.
+#RUN apt-get -y install python2.7-dev 
 
 
 
@@ -21,7 +21,7 @@ RUN apt-get -y install python2.7-dev
 
 
 
-RUN apt-get -y install python-pip
+#RUN apt-get -y install python-pip
 
 RUN pip install ipython pyzmq paho-mqtt pyzk wheel urllib3 django-commands requests sh soupsieve aenum
 
