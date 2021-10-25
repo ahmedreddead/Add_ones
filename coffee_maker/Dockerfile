@@ -10,13 +10,28 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 
 FROM ghcr.io/hassio-addons/debian-base/amd64:4.1.2
+RUN apt-get -y update 
+RUN apt-get -y upgrade
+RUN apt-get -y install python3 
+RUN apt-get -y install python3-dev 
+RUN apt-get -y install python3-opencv
 
-RUN \
-    MAKEFLAGS="-j$(nproc)" \
-    && export MAKEFLAGS \
-    \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
+
+#RUN apt-get -y install git
+#RUN apt-get -y install libgtk2.0-dev
+
+RUN apt-get -y install libavcodec-dev 
+RUN apt-get -y install libavformat-dev
+RUN apt-get -y install libswscale-dev 
+RUN apt-get -y install libjpeg-dev 
+RUN apt-get -y install libpng-dev 
+RUN apt-get -y install libtiff-dev
+RUN apt-get -y install libv4l-dev 
+
+RUN apt-get -y install python3-pip
+
+RUN pip install pandas numpy ipython pyzmq tornado opencv-python ffmpeg
+RUN apt-get install -y --no-install-recommends \
         build-essential=12.6 \
         dirmngr=2.2.12-1+deb10u1 \
         git=1:2.20.1-2+deb10u3 \
@@ -50,20 +65,8 @@ RUN \
         python3-dev=3.7.3-1 \
         python3-distutils=3.7.3-1 \
         python3-minimal=3.7.3-1 \
-        zlib1g-dev=1:1.2.11.dfsg-1 \
-    \
-    && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
-    \
-    && apt-get install -y --no-install-recommends \
-        nodejs=12.22.0-1nodesource1 \
-    \
-    && curl https://bootstrap.pypa.io/get-pip.py | python3 \
-    \
-    && update-alternatives \
-        --install /usr/bin/python python /usr/bin/python3 10 \
-    \
-    && pip3 install --no-cache-dir numpy==1.20.2 \
-
+        zlib1g-dev=1:1.2.11.dfsg-1 
+        
 RUN pip install  pyzk paho-mqtt wheel future	
 
 COPY main.py /
