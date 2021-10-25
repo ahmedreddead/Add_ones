@@ -14,7 +14,7 @@ FROM debian
 
 RUN apt-get -y update 
 RUN apt-get -y upgrade
-#RUN apt-get -y install python3.7
+RUN apt-get -y install python3.7
 #RUN apt-get -y install python3-dev 
 
 
@@ -38,4 +38,4 @@ COPY main.py /
 ADD main.py .
 
 
-CMD ["python2.7" , "./main.py"]
+CMD ["python" , "./main.py"]
