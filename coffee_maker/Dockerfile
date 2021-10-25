@@ -10,7 +10,7 @@ CMD [ "/run.sh" ]
 
 
 
-FROM debian
+FROM ubentu
 
 RUN apt-get -y update 
 RUN apt-get -y upgrade
