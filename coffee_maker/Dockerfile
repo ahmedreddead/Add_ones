@@ -11,6 +11,6 @@ FROM python:3.9
 
 ADD main.py .
 
-RUN pip install pandas pyzk paho-mqtt	wheel
+RUN pip install pandas pyzk paho-mqtt wheel zk
 
 CMD ["python" , "./main.py"]
