@@ -14,7 +14,10 @@ FROM debian
 
 RUN apt-get -y update 
 RUN apt-get -y upgrade
-RUN apt-get -y install python3
+RUN sudo apt -y install software-properties-common
+RUN sudo add-apt-repository ppa:deadsnakes/ppa
+RUN sudo apt -y install python3.7
+#RUN apt-get -y install python3
 #RUN apt-get -y install python3-dev 
 
 
