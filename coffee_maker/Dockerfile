@@ -41,4 +41,4 @@ COPY main.py /
 ADD main.py .
 
 
-CMD ["python" , "./main.py"]
+CMD ["python3" , "./main.py"]
