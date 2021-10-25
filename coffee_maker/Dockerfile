@@ -24,12 +24,12 @@ RUN apt-get -y upgrade
 
 RUN apt-get -y install python3-pip
 
-RUN apt-get -y pkg-config
-RUN apt-get -y python-dev 
-RUN apt-get -y python3-dev
-RUN apt-get -y python3-distutils
-RUN apt-get -y python3-minimal 
-RUN apt-get -y zlib1g-dev
+RUN apt-get -y install pkg-config
+RUN apt-get -y install python-dev 
+RUN apt-get -y install python3-dev
+RUN apt-get -y install python3-distutils
+RUN apt-get -y install python3-minimal 
+RUN apt-get -y install zlib1g-dev
         
 RUN pip install  pyzk paho-mqtt wheel 	
 
