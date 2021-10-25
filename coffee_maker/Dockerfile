@@ -11,6 +11,7 @@ FROM python:3.8
 
 ADD main.py .
 
-RUN pip install pyzk paho-mqtt 	
+RUN pip install paho-mqtt 
+RUN pip install -U pyzk
 
 CMD ["python3" , "./main.py"]
