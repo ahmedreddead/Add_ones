@@ -4,9 +4,6 @@ import socket
 import subprocess
 broker_address = "62.210.9.28"
 finalip = ''
-subprocess.run(
-    '''date | grep -o -w '"+tz+"'' | wc -w''',
-    shell=True)
 for i in range(99,150) :
     #196.221.205.166
     #192.168.0.100
