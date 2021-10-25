@@ -1,7 +1,7 @@
 {
   "name": "Door Lock",
   "version": "1.2",
-  "slug": "Door Lock",
+  "slug": "Door_Lock",
   "description": "My first real add-on!",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "application",
