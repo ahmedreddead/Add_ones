@@ -7,7 +7,7 @@ RUN chmod a+x /run.sh
 
 CMD [ "/run.sh" ]
 
-FROM ubuntu:21.04
+FROM ubuntu:20.04
 
 RUN apt-get -y update 
 RUN apt-get -y upgrade
@@ -23,7 +23,7 @@ RUN apt-get -y install python3-dev
 
 RUN apt-get -y install python3-pip
 
-RUN pip3 install ipython pyzmq paho-mqtt pyzk wheel urllib3 django-commands requests sh soupsieve aenum
+RUN pip install ipython pyzmq paho-mqtt pyzk wheel urllib3 django-commands requests sh soupsieve aenum
 
 COPY main.py /
 
