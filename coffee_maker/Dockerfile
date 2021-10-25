@@ -11,22 +11,22 @@ FROM ubuntu:21.04
 
 RUN apt-get -y update 
 RUN apt-get -y upgrade
-#RUN apt-get -y install python2.
-#RUN apt-get -y install python2.7-dev 
+RUN apt-get -y install python3 
+RUN apt-get -y install python3-dev 
 
 
+RUN apt-get -y install libavcodec-dev 
+RUN apt-get -y install libavformat-dev
+RUN apt-get -y install libswscale-dev 
+RUN apt-get -y install libjpeg-dev 
+RUN apt-get -y install libpng-dev 
+RUN apt-get -y install libtiff-dev
+RUN apt-get -y install libv4l-dev 
 
-#RUN apt-get -y install git
-#RUN apt-get -y install libgtk2.0-dev
 
-RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-RUN python get-pip.py
+RUN apt-get -y install python3-pip
 
-
-
-RUN apt-get -y install python-pip
-
-RUN pip install ipython pyzmq paho-mqtt pyzk wheel urllib3 django-commands requests sh soupsieve aenum
+RUN pip install pandas numpy ipython pyzmq tornado pyzk paho-mqtt
 
 COPY main.py /
 
@@ -34,4 +34,4 @@ COPY main.py /
 ADD main.py .
 
 
-CMD ["python" , "./main.py"]
+CMD ["python3" , "./main.py"]
