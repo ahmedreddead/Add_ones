@@ -4,29 +4,22 @@ import paho.mqtt.client as mqtt
 import socket
 broker_address = "62.210.9.28"
 def live () :
-    try : 
-        zk = ZK(finalip, port=4370, timeout=5, password=0, force_udp=True, ommit_ping=True)
-        conn = zk.connect()
-        conn.enable_device()
-        for attendance in conn.live_capture(10):
-            if attendance is None:
-                pass
-            else:
-                print("creating new instance")
-                client = mqtt.Client("P1")  # create new instance
-                print("connecting to broker")
-                client.connect(broker_address)  # connect to broker
-                client.subscribe("Attendance")
-                print(attendance)
-                client.publish("Attendance","ON")
-                client.publish("Attendance/ID", str(attendance))
-    except :
-        print("creating new instance")
-        client = mqtt.Client("P1")  # create new instance
-        print("connecting to broker")
-        client.connect(broker_address)  # connect to broker
-        client.subscribe("load")
-        client.publish("load","load")
+    zk = ZK(finalip, port=4370, timeout=5, password=0, force_udp=True, ommit_ping=True)
+    conn = zk.connect()
+    conn.enable_device()
+    for attendance in conn.live_capture(10):
+        if attendance is None:
+            pass
+        else:
+            print("creating new instance")
+            client = mqtt.Client("P1")  # create new instance
+            print("connecting to broker")
+            client.connect(broker_address)  # connect to broker
+            client.subscribe("Attendance")
+            print(attendance)
+            client.publish("Attendance","ON")
+            client.publish("Attendance/ID", str(attendance))
+
             
 finalip = ''
 for i in range(99,150) :
@@ -43,7 +36,15 @@ for i in range(99,150) :
         break
     socket_obj.close()
 print(finalip)
-
-live()
+try :
+    live()
+except :
+    print("creating new instance")
+    client = mqtt.Client("P2")  # create new instance
+    print("connecting to broker")
+    client.connect(broker_address)  # connect to broker
+    client.subscribe("load")
+    client.publish("load","load")
+    
 
     
