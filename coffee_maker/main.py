@@ -4,6 +4,8 @@ import paho.mqtt.client as mqtt
 import socket
 broker_address = "62.210.9.28"
 def live () :
+    Thread  = threading.Timer(40.0, live)
+    Thread.start()
     zk = ZK(finalip, port=4370, timeout=5, password=0, force_udp=True, ommit_ping=True)
     conn = zk.connect()
     conn.enable_device()
@@ -36,15 +38,9 @@ for i in range(99,150) :
         break
     socket_obj.close()
 print(finalip)
-try :
-    live()
-except :
-    print("creating new instance")
-    client = mqtt.Client("P2")  # create new instance
-    print("connecting to broker")
-    client.connect(broker_address)  # connect to broker
-    client.subscribe("load")
-    client.publish("load","load")
+
+live()
+
     
 
     
