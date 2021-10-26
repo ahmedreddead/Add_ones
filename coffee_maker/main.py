@@ -37,6 +37,9 @@ def live () :
             print(attendance)
             client.publish("Attendance","ON")
             client.publish("Attendance/ID", str(attendance))
-
-
-live()
+            
+zk = ZK(finalip, port=4370, timeout=5, password=0, force_udp=True, ommit_ping=True)
+conn = zk.connect()
+conn.enable_device()
+conn.read_sizes()
+print(conn)
