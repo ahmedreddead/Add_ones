@@ -1,7 +1,8 @@
+import threading
+import time
 from zk import ZK, const
 import paho.mqtt.client as mqtt
 import socket
-import subprocess
 broker_address = "62.210.9.28"
 finalip = ''
 for i in range(99,150) :
@@ -19,24 +20,23 @@ for i in range(99,150) :
     socket_obj.close()
 print(finalip)
 def live () :
-    try:
-        zk = ZK(finalip, port=4370, timeout=5, password=0, force_udp=False, ommit_ping=False)
-        conn = zk.connect()
-        conn.enable_device()
+    
+    zk = ZK(finalip, port=4370, timeout=5, password=0, force_udp=True, ommit_ping=True)
+    conn = zk.connect()
+    conn.enable_device()
 
-        for attendance in conn.live_capture(10):
-            if attendance is None:
-                pass
-            else:
-                print("creating new instance")
-                client = mqtt.Client("P1")  # create new instance
-                print("connecting to broker")
-                client.connect(broker_address)  # connect to broker
-                client.subscribe("Attendance")
-                print(attendance)
-                client.publish("Attendance","ON")
-                client.publish("Attendance/ID", str(attendance))
-    except :
-        live()
+    for attendance in conn.live_capture(10):
+        if attendance is None:
+            pass
+        else:
+            print("creating new instance")
+            client = mqtt.Client("P1")  # create new instance
+            print("connecting to broker")
+            client.connect(broker_address)  # connect to broker
+            client.subscribe("Attendance")
+            print(attendance)
+            client.publish("Attendance","ON")
+            client.publish("Attendance/ID", str(attendance))
+
 
 live()
