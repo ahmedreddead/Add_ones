@@ -20,8 +20,13 @@ def live () :
                 print(attendance)
                 client.publish("Attendance","ON")
                 client.publish("Attendance/ID", str(attendance))
-    except : 
-        live ()
+    except :
+        print("creating new instance")
+        client = mqtt.Client("P1")  # create new instance
+        print("connecting to broker")
+        client.connect(broker_address)  # connect to broker
+        client.subscribe("load")
+        client.publish("load","load")
             
 finalip = ''
 for i in range(99,150) :
