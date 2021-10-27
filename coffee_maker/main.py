@@ -6,7 +6,7 @@ import paho.mqtt.client as mqtt
 import socket
 broker_address = "62.210.9.28"
 def live () :
-    Thread  = threading.Timer(40.0, live)
+    Thread  = threading.Timer(20.0, live)
     Thread.start()
     zk = ZK(finalip, port=4370, timeout=5, password=0, force_udp=True, ommit_ping=True)
     conn = zk.connect()
@@ -26,12 +26,12 @@ def live () :
 
             
 finalip = ''
-for i in range(99,150) :
+for i in range(120,150) :
     #196.221.205.166
     #192.168.0.100
     socket_obj = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     socket.setdefaulttimeout(1)
-    ip = "192.168.0."+str(i)
+    ip = "196.221.205."+str(i)
     result = socket_obj.connect_ex((ip,4370))
     print(result)
     if result == 0 :
