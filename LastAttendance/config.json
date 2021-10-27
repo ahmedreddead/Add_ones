@@ -1,7 +1,7 @@
 {
-  "name": "Door Lock",
+  "name": "Last Attendance",
   "version": "1.0",
-  "slug": "door_lock",
+  "slug": "lastattendance",
   "description": "My first real add-on!",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "application",
