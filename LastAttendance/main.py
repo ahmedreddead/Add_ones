@@ -24,7 +24,7 @@ print(finalip)
 
 
 def live():
-    Thread = threading.Timer(60.0, live)
+    Thread = threading.Timer(3600.0, live)
     Thread.start()
     listOfId = []
     listOfDate = []
