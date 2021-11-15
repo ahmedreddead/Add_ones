@@ -5,9 +5,9 @@ from zk import ZK, const
 import paho.mqtt.client as mqtt
 import socket
 broker_address = "62.210.9.28"
-finalip = ''
+finalip = '192.168.0.107'
 def live () :
-    Thread  = threading.Timer(20.0, live)
+    Thread  = threading.Timer(15.0, live)
     Thread.start()
     zk = ZK(finalip, port=4370, timeout=5, password=0, force_udp=True, ommit_ping=True)
     conn = zk.connect()
@@ -25,26 +25,6 @@ def live () :
             client.publish("Attendance","ON")
             client.publish("Attendance/ID", str(attendance))
 
-def updateip () :  
-    global finalip
-    Thread  = threading.Timer(60.0*60.0, updateip)
-    Thread.start()
-    for i in range(120,150) :
-    #196.221.205.166
-    #192.168.0.100
-        socket_obj = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        socket.setdefaulttimeout(1)
-        ip = "196.221.205."+str(i)
-        result = socket_obj.connect_ex((ip,4370))
-        print(result)
-        if result == 0 :
-            finalip = ip
-            socket_obj.close()
-            break
-        socket_obj.close()
-    print(finalip)
-    
-updateip ()
 live()
 
     
