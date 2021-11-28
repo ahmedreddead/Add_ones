@@ -5,7 +5,8 @@ from zk import ZK, const
 import paho.mqtt.client as mqtt
 import socket
 
-broker_address = "62.210.9.28"
+#broker_address = "62.210.9.28"
+broker_address = "192.168.0.100"
 finalip = '192.168.0.107'
 
 def live():
@@ -69,6 +70,8 @@ def live():
     print("creating new instance")
     client = mqtt.Client("P1")  # create new instance
     print("connecting to broker")
+    client.tls_set()  # <--- even without arguments
+    client.username_pw_set(username="mqtt-user", password="0000")
     client.connect(broker_address)  # connect to broker
     client.subscribe("LastAttendance")
     for i in range(len(jsonlist)):
