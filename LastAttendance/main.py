@@ -50,9 +50,9 @@ def live():
                 lastDate = listOfDate[index]
                 lastTime = listOfTime[index]
                 listTimesOfCurrentDay = []
-                for i in reversed(range(len(listOfDate))):
-                    if lastDate == listOfDate[i] :
-                        listTimesOfCurrentDay.append(listOfTime[i])
+                for s in reversed(range(len(listOfDate))):
+                    if lastDate == listOfDate[s] and n== listOfId[s] :
+                        listTimesOfCurrentDay.append(listOfTime[s])
                 firstTime = listTimesOfCurrentDay[-1]
                 Lasthours, Lastmin, Lastsec = lastTime.split(":")
                 firsthours, firstmin, firstsec = firstTime.split(":")
@@ -64,7 +64,6 @@ def live():
                 jsonlist.append(json.dumps(jsonname))
 
                 break
-
 
 
     print("creating new instance")
