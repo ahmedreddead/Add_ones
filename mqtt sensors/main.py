@@ -18,11 +18,11 @@ def live () :
     client.publish("hu3","46 %")
     client.publish("hu4","42 %")
 
-    client.publish("temp","22.5°C")
-    client.publish("temp1","21.4°C")
-    client.publish("temp2","19.8°C")
-    client.publish("temp3","15.2°C")
-    client.publish("temp4","10.3°C")
+    client.publish("temp","22.5°C   55 %")
+    client.publish("temp1","21.4°C   58 %")
+    client.publish("temp2","19.8°C   40 %")
+    client.publish("temp3","15.2°C   46 %")
+    client.publish("temp4","10.3°C   42 %")
 
 live()
 
