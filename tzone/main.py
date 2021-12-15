@@ -107,7 +107,7 @@ def mqtt_send ():
 
 
 HOST = ''
-PORT = 8000
+PORT = 60
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
     s.listen(5)
