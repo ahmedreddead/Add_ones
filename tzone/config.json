@@ -14,5 +14,7 @@
   "map": [
     "ssl:rw",
     "backup:rw"
-  ]  
+  ] ,
+  "host_network" : true ,
+  "hassio_api": true
 }
