@@ -7,5 +7,12 @@
   "startup": "application",
   "boot": "auto",
   "options": {},
-  "schema": {}
+  "schema": {},
+  "ports": {
+    "9060/tcp": 9060
+  },
+  "map": [
+    "ssl:rw",
+    "backup:rw"
+  ]  
 }
