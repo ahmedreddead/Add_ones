@@ -1,5 +1,6 @@
 import asyncore
 import binascii
+import socket
 import paho.mqtt.client as mqtt
 broker_address = "192.168.0.100"
 Temp , Hum , Battary, ID , WIFI ,Date , Time ='', '', '' , '', '', '',''
