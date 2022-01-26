@@ -108,12 +108,21 @@ class EchoHandler(asyncore.dispatcher_with_send):
 
     def handle_read(self):
         data = self.recv(8192)
+        Serverip = '192.168.0.121'
+        Serverport = 8080
         if data:
             print(data)
-            ConvertPacketIntoElemets(binascii.hexlify(data).decode())
-            print(responsePacket)
-            self.send((binascii.unhexlify(responsePacket)))
-            mqtt_send()
+            #ConvertPacketIntoElemets(binascii.hexlify(data).decode())
+            #print(responsePacket)
+            #self.send((binascii.unhexlify(responsePacket)))
+            #mqtt_send()
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect((Serverip, Serverport))
+            s.send(binascii.unhexlify(data))
+            print("message sent")
+        except:
+            print("server " + Serverip + " error")
 class EchoServer(asyncore.dispatcher):
 
     def __init__(self, host, port):
