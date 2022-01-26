@@ -2,6 +2,8 @@ import asyncore
 import binascii
 import socket
 import paho.mqtt.client as mqtt
+import datetime
+from datetime import date
 broker_address = "192.168.0.100"
 Temp , Hum , Battary, ID , WIFI ,Date , Time ='', '', '' , '', '', '',''
 responsePacket = ''
@@ -105,6 +107,45 @@ def mqtt_send ():
     client.publish("Tzone/"+ID+'/WIFI', WIFI)
     client.publish("Tzone/"+ID+'/Date', Date)
     client.publish("Tzone/"+ID+'/Time', Time)
+    
+def Get_Date():
+    today = date.today()
+    d3 = today.strftime("%m/%d/%y")
+    d3 = d3.split('/')
+    month = hex(int(d3[0])).replace("0x", "")
+    day = hex(int(d3[1])).replace("0x", "")
+    year = hex(int(d3[2])).replace("0x", "")
+    if len(month) == 1:
+        month = month.replace(month, "0" + month)
+    if len(day) == 1:
+        day = day.replace(day, "0" + day)
+    if len(year) == 1:
+        year = year.replace(year, "0" + year)
+    a= month + day
+    return a
+def Get_Time() :
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+    print("Current Time =", current_time)
+    d3 = current_time.split(':')
+    hour = hex(int(d3[0])).replace("0x", "")
+    minits = hex(int(d3[1])).replace("0x", "")
+    sec = hex(int(d3[2])).replace("0x", "")
+    if len(hour) == 1:
+        hour = hour.replace(hour, "0" + hour)
+    if len(minits) == 1:
+        minits = minits.replace(minits, "0" + minits)
+    if len(sec) == 1:
+        sec = sec.replace(sec, "0" + sec)
+    a= hour + minits + sec
+    return a
+def chainees_sensor (packet) :
+# Framehead 2 +length 2 + framenumber 1 + frametype 1 + (data) N+ checkout 1
+# FBFB 000A 02 81 07E6 0911090D19 64
+# FBFB 000D AE 01 00081EFAFCE0EBA53500  24
+    global responsePacket
+    framenumber = packet[8:10]
+    responsePacket = "FBFB000A"+framenumber+"8107E6"+str(Get_Date())+str(Get_Time())+"64"
 class EchoHandler(asyncore.dispatcher_with_send):
 
     def handle_read(self):
@@ -114,9 +155,11 @@ class EchoHandler(asyncore.dispatcher_with_send):
         if data:
             print(data)
             #ConvertPacketIntoElemets(binascii.hexlify(data).decode())
-            #print(responsePacket)
-            #self.send((binascii.unhexlify(responsePacket)))
+            chainees_sensor(binascii.hexlify(data).decode())
+            print(responsePacket)
+            self.send((binascii.unhexlify(responsePacket)))
             #mqtt_send()
+            
             try:
                 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 s.connect((Serverip, Serverport))
