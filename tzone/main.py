@@ -120,7 +120,7 @@ class EchoHandler(asyncore.dispatcher_with_send):
             try:
                 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 s.connect((Serverip, Serverport))
-                s.send(binascii.unhexlify(data))
+                s.send(binascii.hexlify(data))
                 print("message sent")
             except:
                 print("server " + Serverip + " error")
