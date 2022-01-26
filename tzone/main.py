@@ -116,13 +116,13 @@ class EchoHandler(asyncore.dispatcher_with_send):
             #print(responsePacket)
             #self.send((binascii.unhexlify(responsePacket)))
             #mqtt_send()
-        try:
-            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.connect((Serverip, Serverport))
-            s.send(binascii.unhexlify(data))
-            print("message sent")
-        except:
-            print("server " + Serverip + " error")
+            try:
+                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                s.connect((Serverip, Serverport))
+                s.send(binascii.unhexlify(data))
+                print("message sent")
+            except:
+                print("server " + Serverip + " error")
 class EchoServer(asyncore.dispatcher):
 
     def __init__(self, host, port):
