@@ -165,7 +165,13 @@ def chainees_sensor(packet):
     # FBFB 000D AE 01 00081EFAFCE0EBA53500  24
     global responsePacket
     framenumber = packet[8:10]
-    responsePacket = "FBFB000A" + framenumber + "8107E6" + str(Get_Date()) + str(Get_Time()) + "64"
+    frameType = packet[10:12]
+    if str(frameType) == "01" :
+        responsePacket = "FBFB000A" + framenumber + "8107E6" + str(Get_Date()) + str(Get_Time()) + "64"
+    if str(frameType) == "02" :
+        responsePacket = "FBFB0003" + framenumber + "8207E6" + str(Get_Date()) + str(Get_Time()) + "64"
+    if str(frameType) == "03" :
+        responsePacket = "FBFB0003" + framenumber + "83" + "64"
 
 
 class EchoHandler(asyncore.dispatcher_with_send):
