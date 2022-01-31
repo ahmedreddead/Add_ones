@@ -1,0 +1,20 @@
+{
+  "name": "tzone 4g",
+  "version": "1.0",
+  "slug": "tzone 4g",
+  "description": "local 4g tzone gateway",
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "startup": "application",
+  "boot": "auto",
+  "options": {},
+  "schema": {},
+  "ports": {
+    "9060/tcp": 9060
+  },
+  "map": [
+    "ssl:rw",
+    "backup:rw"
+  ] ,
+  "host_network" : true ,
+  "hassio_api": true
+}
