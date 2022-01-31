@@ -10,7 +10,7 @@ def live () :
     print("creating new instance")
     client = mqtt.Client("P1")  # create new instance
     print("connecting to broker")
-    client.username_pw_set(username="mqtt-user", password="0000")
+    #client.username_pw_set(username="mqtt-user", password="0000")
     client.connect(broker_address)  # connect to broker
     client.publish("hu","55 %")
     client.publish("hu1","58 %")
