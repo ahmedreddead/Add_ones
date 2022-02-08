@@ -1,7 +1,7 @@
 {
   "name": "freshliance",
   "version": "1.0",
-  "slug": "freshliance test",
+  "slug": "freshliance",
   "description": "freshliance",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "application",
