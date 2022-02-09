@@ -42,7 +42,7 @@ def convert_readings (readings,NumOfReadings) :
     for i in range(NumOfReadings) :
         read = readings[0+n:8+n]
         Temp = int(read[0:4],16)/10
-        hum = int(read[4:8],16)
+        hum = int(read[4:8],16)/10
         if Temp > 1000 :
             Temp= str("-")+str(Temp)[2:]
         tempReadings +=str(Temp)+" ℃"+" "
