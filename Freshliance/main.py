@@ -20,8 +20,12 @@ def get_bcc(inputStr):
 def get_length (packet) :
     value = str (hex (len(packet)//2)).replace("0x","")
     if len(value) == 1 :
-        return "0"+value
-    else:
+        return "000"+value
+    elif len(value) == 2 :
+        return "00" + value
+    elif len(value) == 3 :
+        return "0" + value
+    else :
         return value
 def convert_time (hextime) :
     Y = hextime[0:4]
