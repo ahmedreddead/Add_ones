@@ -24,17 +24,17 @@ def live () :
     client.publish("hu8","46 %")
     client.publish("hu9","90 %")
 
-    client.publish("temp","18.5°C")
-    client.publish("temp1","15.4°C")
-    client.publish("temp2","19.8°C")
-    client.publish("temp3","15.2°C")
-    client.publish("temp4","5.2°C")
+    client.publish("temp","18.5°C 58 %RH")
+    client.publish("temp1","15.4°C 40 %RH ")
+    client.publish("temp2","19.8°C 46 %RH")
+    client.publish("temp3","15.2°C 58 %RH")
+    client.publish("temp4","5.2°C 100 %RH")
 
-    client.publish("temp5","18.5°C")
-    client.publish("temp6","19.4°C")
-    client.publish("temp7","19.8°C")
-    client.publish("temp8","15.2°C")
-    client.publish("temp9","7.3°C")
+    client.publish("temp5","18.5°C 58 %RH")
+    client.publish("temp6","19.4°C 43 %RH")
+    client.publish("temp7","19.8°C 55 %RH")
+    client.publish("temp8","15.2°C 45 %RH")
+    client.publish("temp9","7.3°C 90 %RH")
 
 live()
 
