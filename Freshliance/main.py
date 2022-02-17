@@ -94,7 +94,7 @@ def Get_Time():
     a = hour + minits + sec
     return a
 def getinfo(packet,frameType):
-    global ID,Date,Temp,Hum
+    global ID,Date,Temp,Hum,Packetcontent
     if str(frameType) == "01" :
         ID = packet[14:32]
     elif str(frameType) == "03" :
