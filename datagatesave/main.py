@@ -5,6 +5,8 @@ import threading
 from datetime import datetime
 import paho.mqtt.client as mqtt
 import socket
+from datetime import date
+
 from influxdb import InfluxDBClient
 #from influxdb_client import InfluxDBClient, Point, WritePrecision #Token
 #from influxdb_client.client.write_api import SYNCHRONOUS #Token
@@ -23,6 +25,15 @@ USERNAME_DATABASE = "home"
 PASSWORD_DATABASE = "home"
 DATABASE_IP = '192.168.0.100'
 DATABASE_PORT = "8086"
+def ConvertKSA (packet) :
+    hour = packet[46:48]
+    print(int(hour, 16))
+    newtime = str(hex(int(hour, 16) + 1)).replace("0x", "")
+    if len(newtime) == 1:
+        newtime = "0" + newtime
+    newpacket = packet[:46] + newtime + packet[48:]
+    return newpacket
+
 def Checked_SavedHolding_Database():
     client = InfluxDBClient(DATABASE_IP, DATABASE_PORT, USERNAME_DATABASE, PASSWORD_DATABASE, INTERNAL_BACKUP_DATABASE_NAME)
     result = client.query('SELECT *  FROM "Hold"."autogen"."Tzone" ')
@@ -73,6 +84,7 @@ def SendPacketHoldingDataBase(packet) :
     Save_IndexNum(index)
     client.write_points(DataPoint)
 def SendPacketToServer (packet) :
+    packet = ConvertKSA(packet)
     if ServerActive:
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
