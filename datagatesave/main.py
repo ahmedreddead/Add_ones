@@ -16,6 +16,7 @@ Serverport = 5029
 broker_address = "212.83.146.60"
 broker_port = 5050
 responsePacket = ''
+response2 = ''
 INTERNAL_DATABASE_NAME = "example"
 INTERNAL_BACKUP_DATABASE_NAME = "Hold"
 USERNAME_DATABASE = "home"
@@ -97,11 +98,14 @@ def mqttsend (jsonlist,sensoridlist) :
     for i in range(len(jsonlist)):
         client.publish("Tzone/" + str(sensoridlist[i]), str(jsonlist[i]))
 def Update_ACK (Packetindex) :
-    global  responsePacket
+    global  responsePacket,response2
     #str = '@CMD,*000000,@ACK,'+Packetindex+'#,#'
     str1 = '@ACK,'+Packetindex+'#'
     str1 = str1.encode('utf-8')
     responsePacket = str1.hex()
+    response2 = "Server UTC time:"+str(datetime.now())[:19]
+    response2 = response2.encode('utf-8')
+    response2 = response2.hex()
 def ConvertRTCtoTime(RTC) :
     Year,Month,Day,Hours,Min,Sec = RTC[0:2],RTC[2:4],RTC[4:6],RTC[6:8],RTC[8:10],RTC[10:12]
     Year, Month, Day, Hours, Min, Sec =int(Year, 16),int(Month, 16),int(Day, 16),int(Hours, 16),int(Min, 16),int(Sec, 16)
@@ -266,6 +270,7 @@ class EchoHandler(asyncore.dispatcher_with_send):
             if data.startswith("545a") and  data.endswith("0d0a") and len(Packetlist) == 0 :
                 ConvertPacketIntoElemets(data)
                 self.send((binascii.unhexlify(responsePacket)))
+                self.send((binascii.unhexlify(response2)))
             elif data.endswith("0d0a") :
                 collectingpacket = ''
                 for packetpart in Packetlist :
@@ -273,6 +278,7 @@ class EchoHandler(asyncore.dispatcher_with_send):
                 collectingpacket += data
                 ConvertPacketIntoElemets(collectingpacket)
                 self.send((binascii.unhexlify(responsePacket)))
+                self.send((binascii.unhexlify(response2)))
                 Packetlist =[]
             else:
                 Packetlist.append(data)
