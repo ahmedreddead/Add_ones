@@ -7,7 +7,7 @@ from datetime import datetime
 import time
 
 broker_address = "192.168.0.100"
-Temp,Hum ,ID, Date = '', '', '', ''
+Temp,Hum ,ID, Date, Packetcontent = '', '', '', '' , ''
 responsePacket = ''
 def get_bcc(inputStr):
     bcc = 0
@@ -50,6 +50,7 @@ def convert_readings (readings,NumOfReadings) :
         n+=8
     return tempReadings,humReadings
 def mqtt_send():
+    global Packetcontent
     print("creating new instance")
     client = mqtt.Client("Freshliance")  # create new instance
     # client.tls_set()  # <--- even without arguments
@@ -60,6 +61,7 @@ def mqtt_send():
     client.publish("Freshliance" + '/TEMP', Temp)
     client.publish("Freshliance" + '/Hum', Hum)
     client.publish("Freshliance" + '/Date', Date)
+    client.publish("Freshliance" + '/Packet', Packetcontent)
 def Get_Date():
     today = date.today()
     d3 = today.strftime("%m/%d/%y")
@@ -96,6 +98,7 @@ def getinfo(packet,frameType):
     if str(frameType) == "01" :
         ID = packet[14:32]
     elif str(frameType) == "03" :
+        Packetcontent = packet
         hextime = packet[16:30]
         duration = packet[30:34]
         readings = packet[36:-2]
