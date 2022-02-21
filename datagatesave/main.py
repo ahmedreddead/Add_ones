@@ -309,5 +309,5 @@ class EchoServer(asyncore.dispatcher):
         handler = EchoHandler(sock)
 
 
-server = EchoServer('', 9090)
+server = EchoServer('', 1293)
 asyncore.loop()
