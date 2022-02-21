@@ -9,7 +9,7 @@
   "options": {},
   "schema": {},
   "ports": {
-    "9090/tcp": 9090
+    "1293/tcp": 1293
   },
   "map": [
     "ssl:rw",
