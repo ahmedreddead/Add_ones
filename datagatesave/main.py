@@ -179,6 +179,8 @@ def ConvertPacketIntoElemets (packet) :
     print(Packetindex)
     Update_ACK(str ( int(Packetindex, 16)))
     Packetsensorlength = packet[76 :80]
+    if Packetsensorlength == "0000":
+        return 0
     if int(Packetsensorlength, 16) != 0:
         sensorfound = True
         NumberOfSensors = packet[82:84]
