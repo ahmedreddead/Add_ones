@@ -178,7 +178,7 @@ def ConvertPacketIntoElemets (packet) :
     Packetindex = packet[-12:-8]
     print(Packetindex)
     Update_ACK(str ( int(Packetindex, 16)))
-    Packetsensorlength = packet[76 :80]
+    Packetsensorlength = packet[76:80]
     if Packetsensorlength == "0000":
         return 0
     if int(Packetsensorlength, 16) != 0:
@@ -227,6 +227,7 @@ def ConvertSensorsToReadings (GatwayId,date,time,GatewayBattary,GatewayPower,Num
         print(json.dumps(jsonname))
         jsonlist.append(json.dumps(jsonname))
     #mqttsend(jsonlist,sensor_id_list)
+    del jsonname,jsonlist,sensor_id_list,sensor_temp_list,sensor_hum_list,sensor_battary_list,GatwayId,date,time,GatewayBattary,GatewayPower,NumberOfSensors,Sensorhexlist
     SendToInternalDataBase(dectionarylist)
 '''
 def SendToInternalDataBaseToken (dectionarylist):
@@ -271,6 +272,7 @@ def SendToInternalDataBase (dectionarylist):
     for i in dectionarylist :
         DataPoint = BuildJsonDataBase(i["Date"],i["Time"],i["temperature"],i["humidity"],i["SensorBattary"],i["GatewayId"],i["Sensorid"])
         client.write_points(DataPoint)
+    del  dectionarylist
 
 
 class EchoHandler(asyncore.dispatcher_with_send):
@@ -278,21 +280,28 @@ class EchoHandler(asyncore.dispatcher_with_send):
     def handle_read(self):
         global  Packetlist
         data = self.recv(8192)
+
         if data:
             data = str ( binascii.hexlify(data).decode() )
             print(data)
             if data.startswith("545a") and  data.endswith("0d0a") and len(Packetlist) == 0 :
-                ConvertPacketIntoElemets(data)
-                self.send((binascii.unhexlify(responsePacket)))
-                self.send((binascii.unhexlify(response2)))
+                try:
+                    ConvertPacketIntoElemets(data.strip())
+                except : 
+                    pass
+                self.send((binascii.unhexlify(responsePacket.strip())))
+                self.send((binascii.unhexlify(response2.strip())))
             elif data.endswith("0d0a") :
                 collectingpacket = ''
                 for packetpart in Packetlist :
                     collectingpacket += packetpart
                 collectingpacket += data
-                ConvertPacketIntoElemets(collectingpacket)
-                self.send((binascii.unhexlify(responsePacket)))
-                self.send((binascii.unhexlify(response2)))
+                try:
+                    ConvertPacketIntoElemets(collectingpacket.strip())
+                except : 
+                    pass
+                self.send((binascii.unhexlify(responsePacket.strip())))
+                self.send((binascii.unhexlify(response2.strip())))
                 Packetlist =[]
             else:
                 Packetlist.append(data)
@@ -308,6 +317,7 @@ class EchoServer(asyncore.dispatcher):
 
     def handle_accepted(self, sock, addr):
         print('Incoming connection from %s' % repr(addr))
+
         handler = EchoHandler(sock)
 
 
