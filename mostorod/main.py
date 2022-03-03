@@ -269,9 +269,17 @@ def BuildJsonDataBase (Date, Time , Temp , Hum , Battery ,GateWayID, SensorID) :
 def SendToInternalDataBase (dectionarylist):
     from influxdb import InfluxDBClient
     client = InfluxDBClient(DATABASE_IP, DATABASE_PORT , USERNAME_DATABASE, PASSWORD_DATABASE, INTERNAL_DATABASE_NAME)
-    for i in dectionarylist :
-        DataPoint = BuildJsonDataBase(i["Date"],i["Time"],i["temperature"],i["humidity"],i["SensorBattary"],i["GatewayId"],i["Sensorid"])
-        client.write_points(DataPoint)
+    try :
+        for i in dectionarylist :
+            if float(i["temperature"]) > 60 : 
+                return 0 
+            if float(i["temperature"]) < -20 : 
+                return 0 
+            DataPoint = BuildJsonDataBase(i["Date"],i["Time"],i["temperature"],i["humidity"],i["SensorBattary"],i["GatewayId"],i["Sensorid"])
+            client.write_points(DataPoint)
+    except : 
+        return 0
+    
     del  dectionarylist
 
 
