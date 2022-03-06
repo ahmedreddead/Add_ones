@@ -92,6 +92,7 @@ def SendPacketToServer (packet) :
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.connect((Serverip, Serverport))
             s.send(binascii.unhexlify(packet))
+            print('sent to server')
         except:
             print("server " + Serverip + "error")
 def TestServerConnection () : #return network status
