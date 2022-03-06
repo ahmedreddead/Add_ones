@@ -166,6 +166,12 @@ def HumFun ( hum) :
         return "Sensor error"
     return str(int(value, 2))
 def ConvertPacketIntoElemets (packet) :
+    if TestServerConnection() :
+        if Checked_SavedHolding_Database() :
+            threading.Thread(target=Send_Saved_Database, args=[]).start()
+        SendPacketToServer(packet)
+    else:
+        SendPacketHoldingDataBase(packet)
     sensorfound = False
     NumberOfSensors = 0
     Sensorhexlist = []
@@ -196,8 +202,8 @@ def ConvertPacketIntoElemets (packet) :
     GatewayPower = int(GatewayPower, 16)/100
     print("Power of Gateway ",GatewayPower, "Volt")
     print(sensorfound,NumberOfSensors,Sensorhexlist)
-    ConvertSensorsToReadings(GatwayId,date,time,GatewayBattary,GatewayPower,NumberOfSensors,Sensorhexlist,packet)
-def ConvertSensorsToReadings (GatwayId,date,time,GatewayBattary,GatewayPower,NumberOfSensors,Sensorhexlist,packet) :
+    ConvertSensorsToReadings(GatwayId,date,time,GatewayBattary,GatewayPower,NumberOfSensors,Sensorhexlist)
+def ConvertSensorsToReadings (GatwayId,date,time,GatewayBattary,GatewayPower,NumberOfSensors,Sensorhexlist) :
     sensor_id_list = []
     sensor_temp_list = []
     sensor_hum_list = []
@@ -222,14 +228,13 @@ def ConvertSensorsToReadings (GatwayId,date,time,GatewayBattary,GatewayPower,Num
         jsonlist.append(json.dumps(jsonname))
     #mqttsend(jsonlist,sensor_id_list)
     del jsonname,jsonlist,sensor_id_list,sensor_temp_list,sensor_hum_list,sensor_battary_list,GatwayId,date,time,GatewayBattary,GatewayPower,NumberOfSensors,Sensorhexlist
-    SendToInternalDataBase(dectionarylist,packet)
+    SendToInternalDataBase(dectionarylist)
 '''
 def SendToInternalDataBaseToken (dectionarylist):
     bucket = "n"
     client = InfluxDBClient(url="http://localhost:8086",
                             token="n9cd2F9mYZcfhDE7892UzJv7xP38SSyQG9ybQRsYmGp6Bbv6OnbrGl5QGygzsZuzaCQTX-10w1EqY4axQNEzVg==",
                             org="skarpt")
-
     write_api = client.write_api(write_options=SYNCHRONOUS)
     query_api = client.query_api()
     for i in dectionarylist :
@@ -260,29 +265,21 @@ def BuildJsonDataBase (Date, Time , Temp , Hum , Battery ,GateWayID, SensorID) :
     }
 ]
     return JsonData
-def SendToInternalDataBase (dectionarylist,packet):
+def SendToInternalDataBase (dectionarylist):
     from influxdb import InfluxDBClient
     client = InfluxDBClient(DATABASE_IP, DATABASE_PORT , USERNAME_DATABASE, PASSWORD_DATABASE, INTERNAL_DATABASE_NAME)
     try :
         for i in dectionarylist :
-            if int(i["temperature"]) > 50 : 
+            if float(i["temperature"]) > 60 : 
                 return 0 
-            if int(i["temperature"]) < 1 : 
+            if float(i["temperature"]) < -20 : 
                 return 0 
             DataPoint = BuildJsonDataBase(i["Date"],i["Time"],i["temperature"],i["humidity"],i["SensorBattary"],i["GatewayId"],i["Sensorid"])
             client.write_points(DataPoint)
-            
-        if TestServerConnection():
-            SendPacketToServer(packet)
-            if Checked_SavedHolding_Database():
-                threading.Thread(target=Send_Saved_Database, args=[]).start()
-        else:
-            SendPacketHoldingDataBase(packet)
-            
     except : 
         return 0
     
-    del  dectionarylist,packet
+    del  dectionarylist
 
 
 class EchoHandler(asyncore.dispatcher_with_send):
