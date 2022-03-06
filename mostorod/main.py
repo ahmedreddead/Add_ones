@@ -265,9 +265,9 @@ def SendToInternalDataBase (dectionarylist,packet):
     client = InfluxDBClient(DATABASE_IP, DATABASE_PORT , USERNAME_DATABASE, PASSWORD_DATABASE, INTERNAL_DATABASE_NAME)
     try :
         for i in dectionarylist :
-            if float(i["temperature"]) > 50 : 
+            if float(i["temperature"]) > 50.0 : 
                 return 0 
-            if float(i["temperature"]) < 0 : 
+            if float(i["temperature"]) < 1.0 : 
                 return 0 
             DataPoint = BuildJsonDataBase(i["Date"],i["Time"],i["temperature"],i["humidity"],i["SensorBattary"],i["GatewayId"],i["Sensorid"])
             client.write_points(DataPoint)
