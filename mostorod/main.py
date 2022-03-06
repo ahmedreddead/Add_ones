@@ -19,6 +19,7 @@ broker_address = "212.83.146.60"
 broker_port = 5050
 responsePacket = ''
 response2 = ''
+glpacket =''
 INTERNAL_DATABASE_NAME = "database"
 INTERNAL_BACKUP_DATABASE_NAME = "Hold"
 USERNAME_DATABASE = "mostord"
@@ -165,13 +166,9 @@ def HumFun ( hum) :
     else:
         return "Sensor error"
     return str(int(value, 2))
-def ConvertPacketIntoElemets (packet) :
-    if TestServerConnection() :
-        if Checked_SavedHolding_Database() :
-            threading.Thread(target=Send_Saved_Database, args=[]).start()
-        SendPacketToServer(packet)
-    else:
-        SendPacketHoldingDataBase(packet)
+def ConvertPacketIntoElemets (packet) :        
+    global glpacket
+    glpacket = packet
     sensorfound = False
     NumberOfSensors = 0
     Sensorhexlist = []
@@ -267,17 +264,25 @@ def BuildJsonDataBase (Date, Time , Temp , Hum , Battery ,GateWayID, SensorID) :
     return JsonData
 def SendToInternalDataBase (dectionarylist):
     from influxdb import InfluxDBClient
+    global glpacket
+    packet = glpacket
     client = InfluxDBClient(DATABASE_IP, DATABASE_PORT , USERNAME_DATABASE, PASSWORD_DATABASE, INTERNAL_DATABASE_NAME)
     try :
         for i in dectionarylist :
             if float(i["temperature"]) > 60 : 
                 return 0 
-            if float(i["temperature"]) < -20 : 
+            if float(i["temperature"]) < -2 : 
                 return 0 
             DataPoint = BuildJsonDataBase(i["Date"],i["Time"],i["temperature"],i["humidity"],i["SensorBattary"],i["GatewayId"],i["Sensorid"])
             client.write_points(DataPoint)
     except : 
         return 0
+    if TestServerConnection() :
+        if Checked_SavedHolding_Database() :
+            threading.Thread(target=Send_Saved_Database, args=[]).start()
+        SendPacketToServer(packet)
+    else:
+        SendPacketHoldingDataBase(packet)
     
     del  dectionarylist
 
