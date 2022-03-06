@@ -277,7 +277,7 @@ def SendToInternalDataBase (dectionarylist):
                 return 0
             if str(i["Sensorid"]) in sensorlist : 
                 pass
-            else 
+            else :
                 return 0  
             DataPoint = BuildJsonDataBase(i["Date"],i["Time"],i["temperature"],i["humidity"],i["SensorBattary"],i["GatewayId"],i["Sensorid"])
             client.write_points(DataPoint)
