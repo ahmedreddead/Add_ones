@@ -265,7 +265,7 @@ def BuildJsonDataBase (Date, Time , Temp , Hum , Battery ,GateWayID, SensorID) :
     return JsonData
 def SendToInternalDataBase (dectionarylist):
     from influxdb import InfluxDBClient
-    global glpacket
+    global glpacket , sensorlist
     packet = glpacket
     client = InfluxDBClient(DATABASE_IP, DATABASE_PORT , USERNAME_DATABASE, PASSWORD_DATABASE, INTERNAL_DATABASE_NAME)
     try :
@@ -273,7 +273,11 @@ def SendToInternalDataBase (dectionarylist):
             if float(i["temperature"]) > 60 : 
                 return 0 
             if float(i["temperature"]) < -2 : 
-                return 0 
+                return 0
+            if str(i["Sensorid"]) in sensorlist : 
+                pass
+            else 
+                return 0  
             DataPoint = BuildJsonDataBase(i["Date"],i["Time"],i["temperature"],i["humidity"],i["SensorBattary"],i["GatewayId"],i["Sensorid"])
             client.write_points(DataPoint)
     except : 
