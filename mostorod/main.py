@@ -272,12 +272,12 @@ def SendToInternalDataBase (dectionarylist,packet):
             DataPoint = BuildJsonDataBase(i["Date"],i["Time"],i["temperature"],i["humidity"],i["SensorBattary"],i["GatewayId"],i["Sensorid"])
             client.write_points(DataPoint)
             
-            if TestServerConnection() :
-                if Checked_SavedHolding_Database() :
-                    threading.Thread(target=Send_Saved_Database, args=[]).start()
-                SendPacketToServer(packet)
-            else:
-                SendPacketHoldingDataBase(packet)
+        if TestServerConnection():
+            if Checked_SavedHolding_Database():
+                threading.Thread(target=Send_Saved_Database, args=[]).start()
+            SendPacketToServer(packet)
+        else:
+            SendPacketHoldingDataBase(packet)
             
     except : 
         return 0
