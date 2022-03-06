@@ -265,24 +265,24 @@ def SendToInternalDataBase (dectionarylist,packet):
     client = InfluxDBClient(DATABASE_IP, DATABASE_PORT , USERNAME_DATABASE, PASSWORD_DATABASE, INTERNAL_DATABASE_NAME)
     try :
         for i in dectionarylist :
-            if float(i["temperature"]) > 50.0 : 
+            if int(i["temperature"]) > 50 : 
                 return 0 
-            if float(i["temperature"]) < 1.0 : 
+            if int(i["temperature"]) < 1 : 
                 return 0 
             DataPoint = BuildJsonDataBase(i["Date"],i["Time"],i["temperature"],i["humidity"],i["SensorBattary"],i["GatewayId"],i["Sensorid"])
             client.write_points(DataPoint)
             
         if TestServerConnection():
+            SendPacketToServer(packet)
             if Checked_SavedHolding_Database():
                 threading.Thread(target=Send_Saved_Database, args=[]).start()
-            SendPacketToServer(packet)
         else:
             SendPacketHoldingDataBase(packet)
             
     except : 
         return 0
     
-    del  dectionarylist
+    del  dectionarylist,packet
 
 
 class EchoHandler(asyncore.dispatcher_with_send):
