@@ -166,12 +166,6 @@ def HumFun ( hum) :
         return "Sensor error"
     return str(int(value, 2))
 def ConvertPacketIntoElemets (packet) :
-    if TestServerConnection() :
-        if Checked_SavedHolding_Database() :
-            threading.Thread(target=Send_Saved_Database, args=[]).start()
-        SendPacketToServer(packet)
-    else:
-        SendPacketHoldingDataBase(packet)
     sensorfound = False
     NumberOfSensors = 0
     Sensorhexlist = []
@@ -202,8 +196,8 @@ def ConvertPacketIntoElemets (packet) :
     GatewayPower = int(GatewayPower, 16)/100
     print("Power of Gateway ",GatewayPower, "Volt")
     print(sensorfound,NumberOfSensors,Sensorhexlist)
-    ConvertSensorsToReadings(GatwayId,date,time,GatewayBattary,GatewayPower,NumberOfSensors,Sensorhexlist)
-def ConvertSensorsToReadings (GatwayId,date,time,GatewayBattary,GatewayPower,NumberOfSensors,Sensorhexlist) :
+    ConvertSensorsToReadings(GatwayId,date,time,GatewayBattary,GatewayPower,NumberOfSensors,Sensorhexlist,packet)
+def ConvertSensorsToReadings (GatwayId,date,time,GatewayBattary,GatewayPower,NumberOfSensors,Sensorhexlist,packet) :
     sensor_id_list = []
     sensor_temp_list = []
     sensor_hum_list = []
@@ -228,7 +222,7 @@ def ConvertSensorsToReadings (GatwayId,date,time,GatewayBattary,GatewayPower,Num
         jsonlist.append(json.dumps(jsonname))
     #mqttsend(jsonlist,sensor_id_list)
     del jsonname,jsonlist,sensor_id_list,sensor_temp_list,sensor_hum_list,sensor_battary_list,GatwayId,date,time,GatewayBattary,GatewayPower,NumberOfSensors,Sensorhexlist
-    SendToInternalDataBase(dectionarylist)
+    SendToInternalDataBase(dectionarylist,packet)
 '''
 def SendToInternalDataBaseToken (dectionarylist):
     bucket = "n"
@@ -266,17 +260,25 @@ def BuildJsonDataBase (Date, Time , Temp , Hum , Battery ,GateWayID, SensorID) :
     }
 ]
     return JsonData
-def SendToInternalDataBase (dectionarylist):
+def SendToInternalDataBase (dectionarylist,packet):
     from influxdb import InfluxDBClient
     client = InfluxDBClient(DATABASE_IP, DATABASE_PORT , USERNAME_DATABASE, PASSWORD_DATABASE, INTERNAL_DATABASE_NAME)
     try :
         for i in dectionarylist :
-            if float(i["temperature"]) > 60 : 
+            if float(i["temperature"]) > 50 : 
                 return 0 
-            if float(i["temperature"]) < -20 : 
+            if float(i["temperature"]) < 0 : 
                 return 0 
             DataPoint = BuildJsonDataBase(i["Date"],i["Time"],i["temperature"],i["humidity"],i["SensorBattary"],i["GatewayId"],i["Sensorid"])
             client.write_points(DataPoint)
+            
+            if TestServerConnection() :
+                if Checked_SavedHolding_Database() :
+                    threading.Thread(target=Send_Saved_Database, args=[]).start()
+                SendPacketToServer(packet)
+            else:
+                SendPacketHoldingDataBase(packet)
+            
     except : 
         return 0
     
