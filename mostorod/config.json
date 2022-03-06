@@ -2,7 +2,7 @@
   "name": "mostorod",
   "version": "1.0",
   "slug": "mostorod",
-  "description": "mostorod on local database ",
+  "description": "mostorod on local database 1.3 ",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "application",
   "boot": "auto",
