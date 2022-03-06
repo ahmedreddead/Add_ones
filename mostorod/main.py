@@ -26,6 +26,7 @@ USERNAME_DATABASE = "mostord"
 PASSWORD_DATABASE = "mostord"
 DATABASE_IP = '192.168.1.100'
 DATABASE_PORT = "8086"
+sensorlist = ['62211587', '62211586' ,'62211589', '62211588', '62211590', '62211595', '62211598' , '62211601', '62211602' , '62211603']
 def ConvertKSA (packet) :
     hour = packet[46:48]
     print(int(hour, 16))
