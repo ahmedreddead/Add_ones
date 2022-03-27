@@ -284,10 +284,11 @@ class EchoHandler(asyncore.dispatcher_with_send):
         if data:
             data = str ( binascii.hexlify(data).decode() )
             print(data)
-            if data.startswith("545a") and  data.endswith("0d0a") and len(Packetlist) == 0 :
+            if data.startswith("545a") and  data.endswith("0d0a")  :
+                Packetlist = []
                 try:
                     ConvertPacketIntoElemets(data.strip())
-                except : 
+                except :
                     pass
                 self.send((binascii.unhexlify(responsePacket.strip())))
                 self.send((binascii.unhexlify(response2.strip())))
@@ -298,7 +299,7 @@ class EchoHandler(asyncore.dispatcher_with_send):
                 collectingpacket += data
                 try:
                     ConvertPacketIntoElemets(collectingpacket.strip())
-                except : 
+                except :
                     pass
                 self.send((binascii.unhexlify(responsePacket.strip())))
                 self.send((binascii.unhexlify(response2.strip())))
