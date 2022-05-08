@@ -235,7 +235,6 @@ def SendToInternalDataBaseToken (dectionarylist):
     client = InfluxDBClient(url="http://localhost:8086",
                             token="n9cd2F9mYZcfhDE7892UzJv7xP38SSyQG9ybQRsYmGp6Bbv6OnbrGl5QGygzsZuzaCQTX-10w1EqY4axQNEzVg==",
                             org="skarpt")
-
     write_api = client.write_api(write_options=SYNCHRONOUS)
     query_api = client.query_api()
     for i in dectionarylist :
@@ -284,11 +283,10 @@ class EchoHandler(asyncore.dispatcher_with_send):
         if data:
             data = str ( binascii.hexlify(data).decode() )
             print(data)
-            if data.startswith("545a") and  data.endswith("0d0a")  :
-                Packetlist = []
+            if data.startswith("545a") and  data.endswith("0d0a") and len(Packetlist) == 0 :
                 try:
                     ConvertPacketIntoElemets(data.strip())
-                except :
+                except : 
                     pass
                 self.send((binascii.unhexlify(responsePacket.strip())))
                 self.send((binascii.unhexlify(response2.strip())))
@@ -299,7 +297,7 @@ class EchoHandler(asyncore.dispatcher_with_send):
                 collectingpacket += data
                 try:
                     ConvertPacketIntoElemets(collectingpacket.strip())
-                except :
+                except : 
                     pass
                 self.send((binascii.unhexlify(responsePacket.strip())))
                 self.send((binascii.unhexlify(response2.strip())))
