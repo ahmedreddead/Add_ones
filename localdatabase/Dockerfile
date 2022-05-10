@@ -9,8 +9,8 @@ CMD [ "/run.sh" ]
 
 FROM python:3.9
 
-WORKDIR /app
-COPY config /
+WORKDIR /usr/src/app
+COPY config ./
 
 ADD main.py .
 
