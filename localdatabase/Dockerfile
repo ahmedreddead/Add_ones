@@ -10,10 +10,9 @@ CMD [ "/run.sh" ]
 FROM python:3.9
 
 
-COPY config ./
+COPY config //
 
 ADD main.py .
-ADD config .
 
 RUN pip install paho-mqtt 
 RUN pip install influxdb
