@@ -10,7 +10,7 @@ CMD [ "/run.sh" ]
 FROM python:3.9
 
 WORKDIR /app
-COPY config
+COPY config /
 
 ADD main.py .
 
