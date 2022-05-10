@@ -11,7 +11,7 @@ FROM python:3.9
 
 
 #COPY ./config /
-COPY config /tmp/config
+COPY config /config
 
 ADD main.py .
 
