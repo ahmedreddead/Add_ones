@@ -24,6 +24,16 @@ response2 = ''
 #PASSWORD_DATABASE = "home"
 #DATABASE_IP = '192.168.0.100'
 DATABASE_PORT = '8086'
+#importing the os module
+import os
+
+#to get the current working directory
+directory = os.getcwd()
+
+print(directory)
+
+
+
 
 USERNAME_DATABASE = str(open("config/USERNAME_DATABASE.txt", "r").read()).strip()
 PASSWORD_DATABASE = str(open("config/PASSWORD_DATABASE.txt", "r").read()).strip()
