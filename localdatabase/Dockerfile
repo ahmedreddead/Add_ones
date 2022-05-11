@@ -10,8 +10,8 @@ CMD [ "/run.sh" ]
 FROM python:3.9
 
 
-#COPY ./config /
-#COPY config /config
+
+COPY config /config
 
 ADD main.py .
 
