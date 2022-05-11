@@ -8,6 +8,9 @@ import socket
 from datetime import date
 
 from influxdb import InfluxDBClient
+import PyCRC
+from PyCRC.crc import CRC
+
 #from influxdb_client import InfluxDBClient, Point, WritePrecision #Token
 #from influxdb_client.client.write_api import SYNCHRONOUS #Token
 full_packet_list = []
@@ -18,22 +21,21 @@ broker_address = "192.168.0.100"
 broker_port = 1883
 responsePacket = ''
 response2 = ''
-INTERNAL_DATABASE_NAME = "example"
-INTERNAL_BACKUP_DATABASE_NAME = "Hold"
-USERNAME_DATABASE = "home"
-PASSWORD_DATABASE = "home"
-DATABASE_IP = '192.168.0.100'
+#INTERNAL_DATABASE_NAME = "example"
+#INTERNAL_BACKUP_DATABASE_NAME = "Hold"
+#USERNAME_DATABASE = "home"
+#PASSWORD_DATABASE = "home"
+#DATABASE_IP = '192.168.0.100'
+#measurement = "Tzone"
+
 DATABASE_PORT = '8086'
+USERNAME_DATABASE = str(open("config/USERNAME_DATABASE.txt", "r").read()).strip()
+PASSWORD_DATABASE = str(open("config/PASSWORD_DATABASE.txt", "r").read()).strip()
+INTERNAL_BACKUP_DATABASE_NAME = str(open("config/INTERNAL_BACKUP_DATABASE_NAME.txt", "r").read()).strip()
+INTERNAL_DATABASE_NAME = str(open("config/INTERNAL_DATABASE_NAME.txt", "r").read()).strip()
+DATABASE_IP = str(open("config/DATABASE_IP.txt", "r").read()).strip()
+measurement = str(open("config/measurement.txt", "r").read()).strip()
 
-
-#USERNAME_DATABASE = str(open("config/USERNAME_DATABASE.txt", "r").read()).strip()
-#PASSWORD_DATABASE = str(open("config/PASSWORD_DATABASE.txt", "r").read()).strip()
-#INTERNAL_BACKUP_DATABASE_NAME = str(open("config/INTERNAL_BACKUP_DATABASE_NAME.txt", "r").read()).strip()
-#INTERNAL_DATABASE_NAME = str(open("config/INTERNAL_DATABASE_NAME.txt", "r").read()).strip()
-#DATABASE_IP = str(open("config/DATABASE_IP.txt", "r").read()).strip()
-#measurement = str(open("config/measurement.txt", "r").read()).strip()
-
-measurement = "Tzone"
 
 def ConvertKSA (packet) :
     hour = packet[46:48]
@@ -45,7 +47,7 @@ def ConvertKSA (packet) :
     return newpacket
 def Checked_SavedHolding_Database():
     client = InfluxDBClient(DATABASE_IP, DATABASE_PORT, USERNAME_DATABASE, PASSWORD_DATABASE, INTERNAL_BACKUP_DATABASE_NAME)
-    result = client.query('SELECT *  FROM "Hold"."autogen"."Tzone" ')
+    result = client.query('SELECT *  FROM '+str(INTERNAL_BACKUP_DATABASE_NAME)+'."autogen".'+str(measurement))
     length = len(list(result.get_points()))
     if length != 0 :
         return True
@@ -53,11 +55,11 @@ def Checked_SavedHolding_Database():
         return False
 def Send_Saved_Database ():
     client = InfluxDBClient(DATABASE_IP, DATABASE_PORT, USERNAME_DATABASE, PASSWORD_DATABASE, INTERNAL_BACKUP_DATABASE_NAME)
-    result = client.query('SELECT *  FROM "Hold"."autogen"."Tzone" ')
+    result = client.query('SELECT *  FROM '+str(INTERNAL_BACKUP_DATABASE_NAME)+'."autogen".'+str(measurement))
     data = list(result.get_points())
     for point in data :
         SendPacketToServer(str(point["Packet"]))
-        client.delete_series(database="Hold", measurement="Tzone", tags={"id":point["id"]})
+        client.delete_series(database=INTERNAL_BACKUP_DATABASE_NAME, measurement=measurement, tags={"id":point["id"]})
 def Save_IndexNum(index) :
     textfile = open("IndexNum.txt", "w")
     textfile.write(str (index))
@@ -284,8 +286,6 @@ def SendToInternalDataBase (dectionarylist):
     del  dectionarylist
 
 def check_packet(data) :
-    import PyCRC
-    from PyCRC.crc import CRC
     check_code = data[-8:- 4]
     # The range is from Protocol type to Packet index(include Protocol type and Packet index)
     hex_data = data[8:-8]
@@ -305,16 +305,16 @@ def preprocess_packet(data):
     data = data.strip()
     if data.startswith("545a") and data.endswith("0d0a"):
         full_packet_list = []
-        #if check_packet(data) :
-        ConvertPacketIntoElemets(data)
+        if check_packet(data) :
+            ConvertPacketIntoElemets(data)
         return [binascii.unhexlify(responsePacket.strip()) , binascii.unhexlify(response2.strip())]
     elif data.endswith("0d0a") and not data.startswith("545a") and full_packet_list :
         collecting_packet = ''
         for packet_part in full_packet_list:
             collecting_packet += packet_part
         collecting_packet += data
-        #if check_packet(collecting_packet):
-        ConvertPacketIntoElemets(collecting_packet)
+        if check_packet(collecting_packet):
+            ConvertPacketIntoElemets(collecting_packet)
         full_packet_list = []
         return [binascii.unhexlify(responsePacket.strip()), binascii.unhexlify(response2.strip())]
     else:
