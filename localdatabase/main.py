@@ -24,15 +24,6 @@ USERNAME_DATABASE = "home"
 PASSWORD_DATABASE = "home"
 DATABASE_IP = '192.168.0.100'
 DATABASE_PORT = '8086'
-#importing the os module
-import os
-
-#to get the current working directory
-directory = os.getcwd()
-
-print(directory)
-
-
 
 
 #USERNAME_DATABASE = str(open("config/USERNAME_DATABASE.txt", "r").read()).strip()
@@ -42,7 +33,7 @@ print(directory)
 #DATABASE_IP = str(open("config/DATABASE_IP.txt", "r").read()).strip()
 #measurement = str(open("config/measurement.txt", "r").read()).strip()
 
-measurement = 'Tzone'
+measurement = "Tzone"
 
 def ConvertKSA (packet) :
     hour = packet[46:48]
