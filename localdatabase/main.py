@@ -305,16 +305,16 @@ def preprocess_packet(data):
     data = data.strip()
     if data.startswith("545a") and data.endswith("0d0a"):
         full_packet_list = []
-        if check_packet(data) :
-            ConvertPacketIntoElemets(data)
+        #if check_packet(data) :
+        ConvertPacketIntoElemets(data)
         return [binascii.unhexlify(responsePacket.strip()) , binascii.unhexlify(response2.strip())]
     elif data.endswith("0d0a") and not data.startswith("545a") and full_packet_list :
         collecting_packet = ''
         for packet_part in full_packet_list:
             collecting_packet += packet_part
         collecting_packet += data
-        if check_packet(collecting_packet):
-            ConvertPacketIntoElemets(collecting_packet)
+        #if check_packet(collecting_packet):
+        ConvertPacketIntoElemets(collecting_packet)
         full_packet_list = []
         return [binascii.unhexlify(responsePacket.strip()), binascii.unhexlify(response2.strip())]
     else:
