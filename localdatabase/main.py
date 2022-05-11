@@ -18,11 +18,11 @@ broker_address = "192.168.0.100"
 broker_port = 1883
 responsePacket = ''
 response2 = ''
-#INTERNAL_DATABASE_NAME = "example"
-#INTERNAL_BACKUP_DATABASE_NAME = "Hold"
-#USERNAME_DATABASE = "home"
-#PASSWORD_DATABASE = "home"
-#DATABASE_IP = '192.168.0.100'
+INTERNAL_DATABASE_NAME = "example"
+INTERNAL_BACKUP_DATABASE_NAME = "Hold"
+USERNAME_DATABASE = "home"
+PASSWORD_DATABASE = "home"
+DATABASE_IP = '192.168.0.100'
 DATABASE_PORT = '8086'
 #importing the os module
 import os
@@ -35,14 +35,14 @@ print(directory)
 
 
 
-USERNAME_DATABASE = str(open("config/USERNAME_DATABASE.txt", "r").read()).strip()
-PASSWORD_DATABASE = str(open("config/PASSWORD_DATABASE.txt", "r").read()).strip()
-INTERNAL_BACKUP_DATABASE_NAME = str(open("config/INTERNAL_BACKUP_DATABASE_NAME.txt", "r").read()).strip()
-INTERNAL_DATABASE_NAME = str(open("config/INTERNAL_DATABASE_NAME.txt", "r").read()).strip()
-DATABASE_IP = str(open("config/DATABASE_IP.txt", "r").read()).strip()
-measurement = str(open("config/measurement.txt", "r").read()).strip()
+#USERNAME_DATABASE = str(open("config/USERNAME_DATABASE.txt", "r").read()).strip()
+#PASSWORD_DATABASE = str(open("config/PASSWORD_DATABASE.txt", "r").read()).strip()
+#INTERNAL_BACKUP_DATABASE_NAME = str(open("config/INTERNAL_BACKUP_DATABASE_NAME.txt", "r").read()).strip()
+#INTERNAL_DATABASE_NAME = str(open("config/INTERNAL_DATABASE_NAME.txt", "r").read()).strip()
+#DATABASE_IP = str(open("config/DATABASE_IP.txt", "r").read()).strip()
+#measurement = str(open("config/measurement.txt", "r").read()).strip()
 
-
+measurement = 'Tzone'
 
 def ConvertKSA (packet) :
     hour = packet[46:48]
