@@ -1,0 +1,20 @@
+{
+  "name": "mostord may2022",
+  "version": "1.0",
+  "slug": "mostord may2022",
+  "description": "mostord may2022 v2 gateway on local database",
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "startup": "application",
+  "boot": "auto",
+  "options": {},
+  "schema": {},
+  "ports": {
+    "9090/tcp": 9090
+  },
+  "map": [
+    "ssl:rw",
+    "backup:rw"
+  ] ,
+  "host_network" : true ,
+  "hassio_api": true
+}
