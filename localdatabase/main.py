@@ -179,9 +179,9 @@ def HumFun ( hum) :
 
 def logic(packet):
     if TestServerConnection() :
+        SendPacketToServer(packet)
         if Checked_SavedHolding_Database() :
             threading.Thread(target=Send_Saved_Database, args=[]).start()
-        SendPacketToServer(packet)
     else:
         SendPacketHoldingDataBase(packet)
         
