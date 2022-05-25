@@ -176,13 +176,19 @@ def HumFun ( hum) :
     else:
         return "Sensor error"
     return str(int(value, 2))
-def ConvertPacketIntoElemets (packet) :
+
+def logic(packet):
     if TestServerConnection() :
         if Checked_SavedHolding_Database() :
             threading.Thread(target=Send_Saved_Database, args=[]).start()
         SendPacketToServer(packet)
     else:
         SendPacketHoldingDataBase(packet)
+        
+def ConvertPacketIntoElemets (packet) :
+
+    threading.Thread(target=logic, args=[packet]).start()
+    
     sensorfound = False
     NumberOfSensors = 0
     Sensorhexlist = []
