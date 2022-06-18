@@ -6,20 +6,28 @@ import paho.mqtt.client as mqtt
 import socket
 
 #broker_address = "62.210.9.28"
+# mqtt broker ip 
 broker_address = "192.168.0.100"
+# fingerprint ip and it should be static ip 
 finalip = '192.168.0.107'
 
 def live():
+    # thread to call the function after 3600 sec 
     Thread = threading.Timer(3600.0, live)
     Thread.start()
     listOfId = []
     listOfDate = []
     listOfTime = []
+    # this the function to connect the zk fingerprint 
     zk = ZK(finalip, port=4370, timeout=15, password=0, force_udp=True, ommit_ping=True)
     conn = zk.connect()
     conn.enable_device()
+    # this function get all attendance of the device 
     attendances = conn.get_attendance()
     print(type(attendances))
+    
+    # this code is belongs to the data anlayst to get the information from the string , you could do that with difference ways 
+    
     for i in attendances:
         listvalue = str(i).split(" ")
         listOfId.append(listvalue[1])
@@ -39,6 +47,7 @@ def live():
     print(Nameslist)
     print(idlist)
     for n, name in zip(idlist, Nameslist):
+        # this is reversed to get the last time and date 
         for i in reversed(range(len(listOfId))):
             if listOfId[i] == n:
                 index = i
@@ -65,7 +74,7 @@ def live():
 
                 break
 
-
+# push the data with json from to the mqtt 
     print("creating new instance")
     client = mqtt.Client("P1")  # create new instance
     print("connecting to broker")
